@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anand K H — Portfolio
+
+Personal portfolio website for Anand K H, a full-stack software engineer. The site presents professional experience, skills, projects, education, resume, and contact details in a responsive single-page layout.
+
+## Built With
+
+- Next.js 16 with the App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Motion and Lucide React
+- Next Image optimization
+
+## Requirements
+
+- Node.js 20 or newer
+- npm
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+├── app/                  # App Router entry points and global styles
+├── components/
+│   ├── layout/           # Navigation and footer
+│   ├── sections/         # Portfolio page sections
+│   └── ui/               # Reusable UI components
+public/
+├── images/               # Profile and project images
+└── resume.pdf            # Downloadable resume
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Updating Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Edit section content in `src/components/sections/`.
+- Replace the profile image at `public/images/Profile-new.png` and update the `src` in `src/components/sections/hero-section.tsx` if the filename changes.
+- Replace `public/resume.pdf` to update the downloadable resume.
+- Update page metadata in `src/app/layout.tsx`.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project can be deployed to [Vercel](https://vercel.com/) or any platform that supports Next.js:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```
