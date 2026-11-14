@@ -1,138 +1,66 @@
-import { Database, Layers3, Monitor, Server } from "lucide-react";
+import { Database, Layers3, Monitor, Server, Sparkles } from "lucide-react";
+import { Section, SectionHeading, Tag } from "@/components/ui/section";
+import { skillGroups } from "@/data/site";
+import { cn } from "@/lib/utils";
+
+const icons = {
+  monitor: Monitor,
+  server: Server,
+  database: Database,
+  layers: Layers3,
+  sparkles: Sparkles,
+} as const;
+
+/**
+ * Bento layout on a 6-column grid: rows alternate wide+narrow / narrow+wide,
+ * and a leftover last card spans the full row.
+ */
+function spanFor(index: number, count: number) {
+  if (index === count - 1 && index % 2 === 0) return "md:col-span-6";
+  return index % 4 === 0 || index % 4 === 3 ? "md:col-span-4" : "md:col-span-2";
+}
 
 export function SkillsSection() {
   return (
-      <section
+    <Section id="skills" tone="surface">
+      <SectionHeading
         id="skills"
-        className="border-t border-slate-200/80 bg-[#f7f8fa] px-6 py-24 lg:px-8 lg:py-32"
-      >
-        <div className="mx-auto w-full max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
-              Technical expertise
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-slate-950 sm:text-5xl">
-              Technologies I work with
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              A versatile technology stack for developing scalable applications,
-              intuitive user experiences, and reliable backend systems.
-            </p>
-          </div>
+        index="02"
+        eyebrow="Technical expertise"
+        title="Technologies I work with"
+        description="A versatile technology stack for developing scalable applications, intuitive user experiences, and reliable backend systems."
+      />
 
-          <div className="mt-14 grid gap-4 md:grid-cols-2">
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                <Monitor aria-hidden="true" size={22} />
+      <div className="mt-14 grid gap-4 md:grid-cols-6">
+        {skillGroups.map((group, index) => {
+          const Icon = icons[group.icon];
+          return (
+            <div
+              key={group.title}
+              className={cn(
+                "group relative overflow-hidden rounded-xl border border-line bg-canvas p-6 transition-colors duration-300 hover:border-line-strong sm:p-7",
+                spanFor(index, skillGroups.length),
+              )}
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex size-9 items-center justify-center rounded-lg border border-line bg-surface text-accent">
+                  <Icon aria-hidden="true" size={18} strokeWidth={1.75} />
+                </span>
+                <span className="font-mono text-xs text-subtle">
+                  {String(group.skills.length).padStart(2, "0")} skills
+                </span>
               </div>
-              <h3 className="mt-6 text-xl font-semibold text-slate-950">
-                Frontend Development
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Building responsive, interactive, and user-friendly interfaces.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {[
-                  "Angular",
-                  "React.js",
-                  "Next.js",
-                  "JavaScript",
-                  "TypeScript",
-                  "HTML5",
-                  "CSS3",
-                  "Bootstrap",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700"
-                  >
-                    {skill}
-                  </span>
+              <h3 className="mt-6 text-lg font-semibold tracking-tight text-ink">{group.title}</h3>
+              <p className="mt-1.5 text-sm leading-6 text-muted">{group.description}</p>
+              <ul className="mt-6 flex flex-wrap gap-1.5">
+                {group.skills.map((skill) => (
+                  <Tag key={skill}>{skill}</Tag>
                 ))}
-              </div>
+              </ul>
             </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                <Server aria-hidden="true" size={22} />
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-slate-950">
-                Backend Development
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Developing scalable APIs and robust server-side applications.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {[
-                  "Node.js",
-                  "Express.js",
-                  "NestJS",
-                  "RESTful API Development",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                <Database aria-hidden="true" size={22} />
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-slate-950">
-                Databases
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Designing and working with data stores for dependable
-                applications.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["MongoDB", "MySQL", "SQL"].map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-              <div className="flex size-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                <Layers3 aria-hidden="true" size={22} />
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-slate-950">
-                Cloud &amp; Development Tools
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                Tools and practices that support reliable delivery.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {[
-                  "AWS S3",
-                  "Git",
-                  "GitHub",
-                  "GitLab",
-                  "Postman",
-                  "VS Code",
-                  "CI/CD",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+          );
+        })}
+      </div>
+    </Section>
   );
 }

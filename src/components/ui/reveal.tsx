@@ -1,23 +1,15 @@
-"use client";
-
-import { motion } from "motion/react";
 import type { PropsWithChildren } from "react";
+import { cn } from "@/lib/utils";
 
 type RevealProps = PropsWithChildren<{
-  delay?: number;
   className?: string;
 }>;
 
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
+/**
+ * Fades content in as it scrolls into view. Pure CSS (see `.reveal` in
+ * globals.css): the content is visible in the server HTML, so crawlers,
+ * link previews and no-JS visitors always see it.
+ */
+export function Reveal({ children, className }: RevealProps) {
+  return <div className={cn("reveal", className)}>{children}</div>;
 }

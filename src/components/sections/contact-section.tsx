@@ -1,72 +1,145 @@
-import { Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Download, FileText, Mail, MapPin } from "lucide-react";
+import type { ReactNode } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { buttonVariants } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
+import { profile } from "@/data/site";
+
+type ContactItem = {
+  label: string;
+  value: string;
+  icon: ReactNode;
+  href?: string;
+  external?: boolean;
+};
+
+const contactItems: ContactItem[] = [
+  {
+    label: "Email",
+    value: profile.email,
+    icon: <Mail aria-hidden="true" size={16} />,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    label: "LinkedIn",
+    value: "Connect with me",
+    icon: <FaLinkedin aria-hidden="true" size={16} />,
+    href: profile.linkedin,
+    external: true,
+  },
+  {
+    label: "GitHub",
+    value: "Browse my code",
+    icon: <FaGithub aria-hidden="true" size={16} />,
+    href: profile.github,
+    external: true,
+  },
+  {
+    label: "Location",
+    value: profile.location,
+    icon: <MapPin aria-hidden="true" size={16} />,
+  },
+];
 
 export function ContactSection() {
   return (
-      <section
-        id="contact"
-        className="border-t border-slate-200/80 bg-white px-6 py-24 lg:px-8 lg:py-32"
-      >
-        <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
-              Contact
-            </p>
-            <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-[-0.04em] text-slate-950 sm:text-5xl">
-              Let&apos;s build something meaningful.
-            </h2>
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-              Open to exciting opportunities, challenging projects, and
-              collaborations. Feel free to reach out.
-            </p>
-            <a
-              href="mailto:khanand1998@gmail.com"
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-indigo-700"
-            >
-              <Mail aria-hidden="true" size={18} />
-              Send Me an Email
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="border-t border-line bg-canvas px-6 py-20 sm:py-24 lg:px-8 lg:py-28"
+    >
+      <Reveal className="mx-auto w-full max-w-6xl">
+        {/* Inverted panel: dark in light mode, light in dark mode. */}
+        <div className="relative isolate overflow-hidden rounded-2xl bg-ink px-6 py-14 text-canvas sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+          <div
+            aria-hidden="true"
+            className="absolute -right-24 -top-32 -z-10 size-[28rem] rounded-full bg-accent/40 blur-[100px] dark:bg-accent/25"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 opacity-[0.08] [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:48px_48px] [mask-image:linear-gradient(to_bottom,#000,transparent)]"
+          />
+
+          <p className="flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-canvas/60">
+            <span className="text-indigo-300 dark:text-indigo-600">07</span>
+            <span aria-hidden="true" className="h-px w-6 bg-canvas/25" />
+            Contact
+          </p>
+          <h2
+            id="contact-heading"
+            className="mt-5 max-w-2xl text-balance text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-5xl"
+          >
+            Let&apos;s build something meaningful.
+          </h2>
+          <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-canvas/70 sm:text-lg sm:leading-8">
+            Open to exciting opportunities, challenging projects, and collaborations.
+            Feel free to reach out.
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href={`mailto:${profile.email}`} className={buttonVariants({ variant: "inverse" })}>
+              <Mail aria-hidden="true" size={16} />
+              Send me an email
             </a>
-          </div>
-          <div className="contact-details flex flex-col items-start gap-5 text-sm">
             <a
-              href="mailto:khanand1998@gmail.com"
-              className="group inline-flex items-center gap-3 font-semibold text-slate-700 transition hover:text-indigo-600"
-            >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-rose-50 text-rose-500 transition group-hover:bg-rose-100">
-                <Mail aria-hidden="true" size={18} />
-              </span>
-              khanand1998@gmail.com
-            </a>
-            <div className="inline-flex items-center gap-3 text-slate-600">
-              <span className="flex size-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                <MapPin aria-hidden="true" size={18} />
-              </span>
-              Bengaluru, Karnataka, India
-            </div>
-            <a
-              href="https://www.linkedin.com/in/anand-k-h-0bb22416b/"
+              href={profile.resume}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-3 font-semibold text-slate-700 transition hover:text-indigo-600"
+              className={buttonVariants({ variant: "inverse-outline" })}
             >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600 transition hover:bg-sky-100">
-                <FaLinkedin aria-hidden="true" size={18} />
-              </span>
-              LinkedIn
+              <FileText aria-hidden="true" size={16} />
+              View resume
+              <span className="sr-only">(opens in a new tab)</span>
             </a>
-            <a
-              href="https://github.com/Anand-KH"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-3 font-semibold text-slate-700 transition hover:text-indigo-600"
-            >
-              <span className="flex size-11 items-center justify-center rounded-xl bg-slate-100 text-slate-700 transition hover:bg-slate-200">
-                <FaGithub aria-hidden="true" className="text-[#181717] dark:text-slate-100" size={18} />
-              </span>
-              GitHub
+            <a href={profile.resume} download className={buttonVariants({ variant: "inverse-outline" })}>
+              <Download aria-hidden="true" size={16} />
+              Download
             </a>
           </div>
+
+          <ul className="mt-14 grid gap-px overflow-hidden rounded-xl border border-canvas/15 bg-canvas/15 sm:grid-cols-2 lg:grid-cols-4">
+            {contactItems.map((item) => {
+              const content = (
+                <>
+                  <span className="flex items-center justify-between text-canvas/60">
+                    <span className="flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em]">
+                      {item.icon}
+                      {item.label}
+                    </span>
+                    {item.href && (
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        size={15}
+                        className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
+                    )}
+                  </span>
+                  <span className="mt-3 block break-words text-sm font-medium text-canvas">
+                    {item.value}
+                  </span>
+                </>
+              );
+
+              return (
+                <li key={item.label} className="bg-ink">
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                      className="group block h-full p-5 transition-colors hover:bg-canvas/5"
+                    >
+                      {content}
+                      {item.external && <span className="sr-only">(opens in a new tab)</span>}
+                    </a>
+                  ) : (
+                    <div className="h-full p-5">{content}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
-      </section>
+      </Reveal>
+    </section>
   );
 }

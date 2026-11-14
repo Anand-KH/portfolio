@@ -1,59 +1,51 @@
 import { GraduationCap, MapPin } from "lucide-react";
+import { Section, SectionHeading } from "@/components/ui/section";
+import { education } from "@/data/site";
 
 export function EducationSection() {
   return (
-      <section
-        id="education"
-        className="border-t border-slate-200/80 bg-white px-6 py-24 lg:px-8 lg:py-32"
-      >
-        <div className="mx-auto w-full max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
-              Education
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.04em] text-slate-950 sm:text-5xl">
-              The foundation behind my craft.
-            </h2>
+    <Section id="education" tone="surface">
+      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-20">
+        <SectionHeading
+          id="education"
+          index="06"
+          eyebrow="Education"
+          title="The foundation behind my craft."
+        />
+
+        <article className="rounded-xl border border-line bg-canvas p-6 sm:p-7">
+          <div className="flex items-start gap-4">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-line bg-surface text-accent">
+              <GraduationCap aria-hidden="true" size={20} strokeWidth={1.75} />
+            </span>
+            <div className="min-w-0">
+              <h3 className="text-lg font-semibold leading-snug tracking-tight text-ink">
+                {education.degree}
+              </h3>
+              <p className="mt-0.5 text-muted">{education.field}</p>
+            </div>
           </div>
 
-          <article className="mt-10 rounded-3xl border border-slate-200 bg-[#f7f8fa] p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/5 sm:p-8">
-            <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between">
-              <div className="flex items-start gap-5">
-                <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                  <GraduationCap aria-hidden="true" size={27} />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-indigo-600">
-                    Bachelor&apos;s degree
-                  </p>
-                  <h3 className="mt-2 max-w-2xl text-xl font-semibold leading-snug text-slate-950 sm:text-2xl">
-                    Bachelor of Engineering (B.E.)
-                  </h3>
-                  <p className="mt-1 text-base font-medium text-slate-700">
-                    Electronics and Communication
-                  </p>
-                </div>
-              </div>
-              <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
-                <span className="rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-slate-600 shadow-sm">
-                  2016 – 2020
-                </span>
-                <span className="rounded-full bg-indigo-100 px-3.5 py-2 text-sm font-semibold text-indigo-700">
-                  CGPA: 6.48
-                </span>
-              </div>
+          <dl className="mt-6 grid gap-4 border-t border-line pt-5 text-sm sm:grid-cols-[1fr_auto_auto] sm:gap-8">
+            <div>
+              <dt className="sr-only">Institution</dt>
+              <dd className="font-medium text-ink">{education.school}</dd>
+              <dd className="mt-1 inline-flex items-center gap-1.5 text-subtle">
+                <MapPin aria-hidden="true" size={13} />
+                {education.location}
+              </dd>
             </div>
-            <div className="mt-7 border-t border-slate-200 pt-5">
-              <p className="font-semibold text-slate-950">
-                RAJARAJESHWARI COLLEGE OF ENGINEERING
-              </p>
-              <p className="mt-2 inline-flex items-center gap-2 text-sm text-slate-500">
-                <MapPin aria-hidden="true" className="text-indigo-600" size={16} />
-                Bengaluru, Karnataka
-              </p>
+            <div>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-subtle">Years</dt>
+              <dd className="mt-1 text-ink">{education.period}</dd>
             </div>
-          </article>
-        </div>
-      </section>
+            <div>
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-subtle">Grade</dt>
+              <dd className="mt-1 text-ink">{education.grade.replace(/^CGPA:\s*/, "CGPA ")}</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </Section>
   );
 }
